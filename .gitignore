@@ -20,6 +20,7 @@
 *.rar
 
 atlassian-ide-plugin.xml
+.gitignore
 target
 .idea
 .classpath
