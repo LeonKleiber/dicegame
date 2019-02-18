@@ -1,9 +1,10 @@
+package projekt;
 
 public class Main {
 
 	public static void main(String[] args) {
-		UserProfile up = new UserProfile();
-		up.createProfile();
+		Config cfg = new Config();
+		cfg.startConfig();
 	}
 
 }
