@@ -4,13 +4,13 @@ public class ScoreManager {
 
 	private int score = 0;
 	private int dice;
-	private int temporarlyScore = 0;
-	private int i_rounds;
+	private int temporarlyScore;
 	private int tryes;
+	private int position;
 
 	public void startRound() {
-		tryes = 5;
-		temporarlyScore = 0;
+		setTryes(5);
+		setTemporarlyScore(0);
 	}
 
 	public int dice() {
@@ -20,23 +20,55 @@ public class ScoreManager {
 	}
 
 	public void checkDice() {
-		switch (dice) {
-		case 1:
-		case 3:
-		case 5:
-			score-=temporarlyScore;
-			temporarlyScore = 0;
-			tryes = 0;
-			break;
-		case 2:
-		case 4:
-		case 6:
-			temporarlyScore += dice;
-			score+
-			tryes -= 1;
+		this.setPosition(5-this.getTryes()); 
+		if (dice%2==0) {
+			setTemporarlyScore(getTemporarlyScore() + dice);
+			this.setScore(this.getScore() + dice);
+			setTryes(getTryes() - 1);
+		}else{
+			this.setScore(this.getScore() - this.getTemporarlyScore());
+			setTemporarlyScore(0);
+			setTryes(0);
+
 		}
 	}
-	public int get() {
+
+	private void setPosition(int position) {
+		this.position =position;
 		
 	}
+
+	public void setTryes(int tryes) {
+		this.tryes=tryes;
+		
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getTryes() {
+		return tryes;
+	}
+
+	private  int getTemporarlyScore() {
+		return temporarlyScore;
+	}
+
+	public void setTemporarlyScore(int temporarlyScore) {
+		this.temporarlyScore = temporarlyScore;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void endRound() {
+		setTryes(0);
+	}
+
 }

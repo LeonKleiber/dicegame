@@ -1,10 +1,20 @@
 package projekt;
 
+import java.awt.EventQueue;
+
 public class Main {
 
 	public static void main(String[] args) {
-		Config cfg = new Config();
-		cfg.startConfig();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Config frame = new Config();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

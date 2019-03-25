@@ -1,104 +1,112 @@
 package projekt;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.DropMode;
 
 public class Config extends JFrame implements ActionListener {
 
-	private int rounds = 0;
-	private String[] playerNames = new String[2];
-	private JButton submitButton;
-	private JTextField tfPlayer1, tfPlayer2, tfRounds;
-	private JLabel labelPlayer1, labelPlayer2, labelRounds, labelOutput;
+	private int rounds, numOfPlayers;
+	private JPanel contentPane;
+	private JTextField TfRounds;
+	private JTextField TfPlayers;
+	private JLabel LabelOutputPlayers, LabelOutputRounds;
 
-	public void startConfig() {
-
-		setLayout(null);
-
-		// Damit man nicht so viel verändern muss falls einem die Positionen nicht
-		// gefallen
-		int positionLeftX = 20;
-		int firstElementsY = 20;
-		int widthLabel = 170;
-		int heightElements = 20;
-		int positionPlayersX = positionLeftX + widthLabel;
-		int widthPlayers = widthLabel;
-		int widthRounds = widthPlayers / 4;
-		int widthButton = widthLabel + widthPlayers;
-		int positionRoundsX = positionPlayersX + widthPlayers - widthRounds;
-		int secondElementsY = (int) (firstElementsY + 1.5 * heightElements);
-		int thirdElementsY = (int) (secondElementsY + 1.5 * heightElements);
-		int buttonY = thirdElementsY + 2 * heightElements;
-		int outputY = (int) (buttonY + 1.5 * heightElements);
-		int height = outputY + 3 * firstElementsY;
-		int width = widthButton + 2 * positionLeftX;
-
-		labelRounds = new JLabel("Rounds:");
-		labelRounds.setBounds(positionLeftX, firstElementsY, widthLabel, heightElements);
-
-		tfRounds = new JTextField();
-		tfRounds.setBounds(positionRoundsX, firstElementsY, widthRounds, heightElements);
-		// Hab ich im Internet Nachgschaut da ich nicht wusste wie das machen könnte
-		// Alles in dem TexetField ist Rechtsbündig
-		tfRounds.setHorizontalAlignment(SwingConstants.RIGHT);
-
-		labelPlayer1 = new JLabel("Name Player 1:");
-		labelPlayer1.setBounds(positionLeftX, secondElementsY, widthLabel, heightElements);
-
-		tfPlayer1 = new JTextField();
-		tfPlayer1.setBounds(positionPlayersX, secondElementsY, widthPlayers, heightElements);
-
-		labelPlayer2 = new JLabel("Name Player 2:");
-		labelPlayer2.setBounds(positionLeftX, thirdElementsY, widthLabel, heightElements);
-
-		tfPlayer2 = new JTextField();
-		tfPlayer2.setBounds(positionPlayersX, thirdElementsY, widthPlayers, heightElements);
-
-		submitButton = new JButton("Submit");
-		submitButton.setBounds(positionLeftX, buttonY, widthButton, heightElements);
-		submitButton.addActionListener(this);
-
-		labelOutput = new JLabel();
-		labelOutput.setBounds(positionLeftX, outputY, widthButton, heightElements);
-
-		this.add(labelRounds);
-		this.add(tfRounds);
-		this.add(labelPlayer1);
-		this.add(tfPlayer1);
-		this.add(labelPlayer2);
-		this.add(tfPlayer2);
-		this.add(submitButton);
-		this.add(labelOutput);
-
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-		this.setSize(width, height);
-		this.setTitle("Dice Game: Config");
-		// Zentriet das Fenster
+	public Config() {
+		setTitle("Config");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 350, 175);
 		this.setLocationRelativeTo(null);
+		contentPane = new JPanel();
+		contentPane.setForeground(Color.WHITE);
+		contentPane.setBackground(Color.DARK_GRAY);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel LabelRounds = new JLabel("Rounds");
+		LabelRounds.setBounds(40, 23, 59, 16);
+		contentPane.add(LabelRounds);
+		LabelRounds.setForeground(Color.WHITE);
+
+		TfRounds = new JTextField();
+		TfRounds.setBounds(245, 18, 62, 26);
+		contentPane.add(TfRounds);
+		TfRounds.setHorizontalAlignment(SwingConstants.RIGHT);
+		TfRounds.setColumns(10);
+
+		JLabel LabelPlayers = new JLabel("Number of Players ");
+		LabelPlayers.setBounds(40, 51, 119, 16);
+		contentPane.add(LabelPlayers);
+		LabelPlayers.setForeground(Color.WHITE);
+
+		TfPlayers = new JTextField();
+		TfPlayers.setBounds(245, 49, 61, 20);
+		contentPane.add(TfPlayers);
+		TfPlayers.setHorizontalAlignment(SwingConstants.RIGHT);
+		TfPlayers.setColumns(10);
+
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(74, 119, 203, 28);
+		contentPane.add(btnSubmit);
+		btnSubmit.setBackground(Color.DARK_GRAY);
+		btnSubmit.addActionListener(this);
+
+		LabelOutputRounds = new JLabel("");
+		LabelOutputRounds.setBounds(50, 79, 246, 16);
+		contentPane.add(LabelOutputRounds);
+		LabelOutputRounds.setForeground(Color.WHITE);
+
+		LabelOutputPlayers = new JLabel("");
+		LabelOutputPlayers.setBounds(64, 101, 228, 16);
+		contentPane.add(LabelOutputPlayers);
+		LabelOutputPlayers.setBackground(Color.DARK_GRAY);
+		LabelOutputPlayers.setForeground(Color.WHITE);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			rounds = (int) Double.parseDouble(tfRounds.getText());
-			if (rounds <= 20 && rounds > 0) {
-				playerNames[0] = tfPlayer1.getText();
-				playerNames[1] = tfPlayer2.getText();
-				for (int i = 0; i < playerNames.length; i++) {
-					GameGui gg = new GameGui(rounds, playerNames, i);
-				}
 
-			} else {
-				throw new Exception();
-			}
+		rounds = 0;
+		numOfPlayers = 0;
+
+		LabelOutputPlayers.setText("");
+		LabelOutputRounds.setText("");
+		try {
+			rounds = (int) Double.parseDouble(TfRounds.getText());
 		} catch (Exception error) {
-			labelOutput.setText("You have to give a number between 1 and 10 Rounds");
-			tfRounds.setText("");
+			LabelOutputRounds.setText("You can play between 1 and 20 Rounds");
+
+		}
+		try {
+			numOfPlayers = (int) Double.parseDouble(TfPlayers.getText());
+		} catch (Exception error) {
+			LabelOutputPlayers.setText("You can only play with 2-6 players");
+		}
+		if (rounds <= 20 && rounds >= 1 && numOfPlayers <= 6 && numOfPlayers >= 2) {
+			PlayerConfig pc = new PlayerConfig();
+			pc.startConfig(numOfPlayers, rounds);
+		} else {
+			if (rounds > 20 || rounds < 1) {
+				LabelOutputRounds.setText("You can play between 1 and 20 Rounds");
+			} 
+			if (numOfPlayers > 6 || numOfPlayers < 2) {
+				LabelOutputPlayers.setText("You can only play with 2-6 players");
+			}
 		}
 
+		TfRounds.setText("");
+		TfPlayers.setText("");
 	}
-
 }
