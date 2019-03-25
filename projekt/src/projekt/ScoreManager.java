@@ -15,21 +15,18 @@ public class ScoreManager {
 
 	public int dice() {
 		dice = (int) ((Math.random() * 6) + 1);
-		checkDice();
+		this.setPosition(5-this.getTryes()); 
+		setTryes(getTryes() - 1);
 		return dice;
 	}
 
 	public void checkDice() {
-		this.setPosition(5-this.getTryes()); 
+		
 		if (dice%2==0) {
 			setTemporarlyScore(getTemporarlyScore() + dice);
 			this.setScore(this.getScore() + dice);
-			setTryes(getTryes() - 1);
 		}else{
-			this.setScore(this.getScore() - this.getTemporarlyScore());
-			setTemporarlyScore(0);
-			setTryes(0);
-
+			endRound();
 		}
 	}
 
@@ -55,7 +52,7 @@ public class ScoreManager {
 		return tryes;
 	}
 
-	private  int getTemporarlyScore() {
+	public int getTemporarlyScore() {
 		return temporarlyScore;
 	}
 
@@ -68,7 +65,10 @@ public class ScoreManager {
 	}
 
 	public void endRound() {
+		this.setScore(this.getScore() - this.getTemporarlyScore());
 		setTryes(0);
+		setTemporarlyScore(0);
+		
 	}
 
 }

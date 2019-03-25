@@ -28,6 +28,9 @@ public class PlayerConfig extends JFrame implements ActionListener {
 		this.rounds = rounds;
 		this.numOfPlayers = numOfPlayers;
 		playerNames = new String[numOfPlayers];
+		for (int iPlayer =0 ; iPlayer<numOfPlayers;iPlayer++) {
+			playerNames[iPlayer]= "Player "+ (iPlayer+1);
+		}
 		playerBackgrounds = new Color[numOfPlayers];
 		playerForegrounds = new Color[numOfPlayers];
 		labelsPlayer = new JLabel[numOfPlayers];
@@ -38,8 +41,6 @@ public class PlayerConfig extends JFrame implements ActionListener {
 		rbsBlue = new JRadioButton[numOfPlayers];
 		rbsBlack = new JRadioButton[numOfPlayers];
 		rbsWhite = new JRadioButton[numOfPlayers];
-
-		ButtonGroup[] playerGroups = new ButtonGroup[numOfPlayers];
 
 		setLayout(null);
 
@@ -81,13 +82,14 @@ public class PlayerConfig extends JFrame implements ActionListener {
 					heightElements);
 			labelsPlayer[i].setForeground(Color.WHITE);
 			contentPane.add(labelsPlayer[i]);
-			tfsPlayer[i] = new JTextField();
+			tfsPlayer[i] = new JTextField("");
 			tfsPlayer[i].setBounds(positionPlayersX, i * firstElementsY + heightElements, widthElements,
 					heightElements);
 			contentPane.add(tfsPlayer[i]);
 
 			rbsRose[i] = new JRadioButton("Rose");
-			rbsRose[i].setBounds(positionRoseX, i * firstElementsY + heightElements, widthRose, heightElements);
+			rbsRose[i].setBounds(positionRoseX, i *
+					firstElementsY + heightElements, widthRose, heightElements);
 			contentPane.add(rbsRose[i]);
 			rbsRose[i].setForeground(Color.PINK);
 			playerGroupsI.add(rbsRose[i]);
@@ -151,7 +153,9 @@ public class PlayerConfig extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == submitButton) {
 			for (int i = 0; i < labelsPlayer.length; i++) {
-				playerNames[i] = tfsPlayer[i].getText();
+				if (!tfsPlayer[i].getText().equals("")) {
+					playerNames[i] = tfsPlayer[i].getText();
+				}
 			}
 			PlayerManager pm = new PlayerManager(rounds, playerNames, playerBackgrounds, playerForegrounds);
 			pm.startGame();

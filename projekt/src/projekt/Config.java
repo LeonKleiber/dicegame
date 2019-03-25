@@ -86,7 +86,7 @@ public class Config extends JFrame implements ActionListener {
 		try {
 			rounds = (int) Double.parseDouble(TfRounds.getText());
 		} catch (Exception error) {
-			LabelOutputRounds.setText("You can play between 1 and 20 Rounds");
+			LabelOutputRounds.setText("You can play between 1 and 18 Rounds");
 
 		}
 		try {
@@ -94,12 +94,12 @@ public class Config extends JFrame implements ActionListener {
 		} catch (Exception error) {
 			LabelOutputPlayers.setText("You can only play with 2-6 players");
 		}
-		if (rounds <= 20 && rounds >= 1 && numOfPlayers <= 6 && numOfPlayers >= 2) {
+		if (rounds <= 18 && rounds >= 1 && numOfPlayers <= 6 && numOfPlayers >= 2) {
 			PlayerConfig pc = new PlayerConfig();
 			pc.startConfig(numOfPlayers, rounds);
 		} else {
-			if (rounds > 20 || rounds < 1) {
-				LabelOutputRounds.setText("You can play between 1 and 20 Rounds");
+			if (rounds > 18 || rounds < 1) {
+				LabelOutputRounds.setText("You can play between 1 and 18 Rounds");
 			} 
 			if (numOfPlayers > 6 || numOfPlayers < 2) {
 				LabelOutputPlayers.setText("You can only play with 2-6 players");
