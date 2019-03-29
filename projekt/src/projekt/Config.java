@@ -94,12 +94,13 @@ public class Config extends JFrame implements ActionListener {
 		} catch (Exception error) {
 			LabelOutputPlayers.setText("You can only play with 2-6 players");
 		}
-		if (rounds <= 18 && rounds >= 1 && numOfPlayers <= 6 && numOfPlayers >= 2) {
+		if (rounds <= 100 && rounds >= 1 && numOfPlayers <= 6 && numOfPlayers >= 2) {
+			this.setVisible(false);
 			PlayerConfig pc = new PlayerConfig();
 			pc.startConfig(numOfPlayers, rounds);
 		} else {
-			if (rounds > 18 || rounds < 1) {
-				LabelOutputRounds.setText("You can play between 1 and 18 Rounds");
+			if (rounds > 100 || rounds < 1) {
+				LabelOutputRounds.setText("You can play between 1 and 100 Rounds");
 			} 
 			if (numOfPlayers > 6 || numOfPlayers < 2) {
 				LabelOutputPlayers.setText("You can only play with 2-6 players");

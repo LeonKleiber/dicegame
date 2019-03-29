@@ -20,14 +20,19 @@ public class ScoreManager {
 		return dice;
 	}
 
-	public void checkDice() {
-		
-		if (dice%2==0) {
+	public void checkDice(int[] evilNums) {
+		boolean isGood=true;
+		for (int i=0;i<evilNums.length;i++) {
+			if (dice==evilNums[i]) {
+				endRound();
+				isGood=false;
+			}
+		}
+		if(isGood) {
 			setTemporarlyScore(getTemporarlyScore() + dice);
 			this.setScore(this.getScore() + dice);
-		}else{
-			endRound();
 		}
+		
 	}
 
 	private void setPosition(int position) {

@@ -17,7 +17,7 @@ public class PlayerConfig extends JFrame implements ActionListener {
 	private String[] playerNames;
 	private Color[] playerBackgrounds;
 	private Color[] playerForegrounds;
-	private JButton submitButton;
+	private JButton btnOption, btnStartGame;
 	private JLabel labelsPlayer[];
 	private JTextField tfsPlayer[];
 	private JPanel contentPane;
@@ -134,32 +134,34 @@ public class PlayerConfig extends JFrame implements ActionListener {
 
 		int height = i * (firstElementsY) + 10 + 5 * firstElementsY;
 		int width = widthButton + 2 * positionLeftX;
+		
+		btnStartGame = new JButton("Start Game");
+		btnStartGame.setBounds(positionLeftX, i * 20 + 40, widthButton, heightElements);
+		btnStartGame.addActionListener(this);
+		contentPane.add(btnStartGame);
 
-		submitButton = new JButton("Submit");
-		submitButton.setBounds(positionLeftX, i * 20 + 40, widthButton, heightElements);
-		submitButton.addActionListener(this);
-		contentPane.add(submitButton);
+	
 
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(width, height);
 		this.setTitle("Dice Game: Config");
-		// im Internet nachgeschaut
-		// Zentriet das Fenster
+	
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == submitButton) {
+		if (e.getSource() == btnStartGame) {
 			for (int i = 0; i < labelsPlayer.length; i++) {
 				if (!tfsPlayer[i].getText().equals("")) {
 					playerNames[i] = tfsPlayer[i].getText();
 				}
 			}
-			PlayerManager pm = new PlayerManager(rounds, playerNames, playerBackgrounds, playerForegrounds);
-			pm.startGame();
-		}
+			this.setVisible(false);
+			new Option(rounds, playerNames, playerBackgrounds, playerForegrounds);
+		} 
+			
 		for (int iPlayer = 0; iPlayer < numOfPlayers; iPlayer++) {
 
 			if (e.getSource() == rbsRose[iPlayer]) {

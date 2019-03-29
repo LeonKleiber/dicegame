@@ -14,9 +14,11 @@ public class PlayerManager {
 	private Color[] playerForegrounds;
 	private RoundManager rm;
 	private int iRounds = 0;
+	private int[] evilNums;
 
-	public PlayerManager(int rounds, String[] playerNames, Color[] playerBackgrounds, Color[] playerForegrounds) {
+	public PlayerManager(int rounds, String[] playerNames, Color[] playerBackgrounds, Color[] playerForegrounds, int[] evilNums) {
 		totalRounds = rounds;
+		this.evilNums=evilNums;
 		this.playerNames = playerNames;
 		this.playerBackgrounds = playerBackgrounds;
 		this.playerForegrounds = playerForegrounds;
@@ -27,7 +29,7 @@ public class PlayerManager {
 		rm = new RoundManager(playerNames.length, totalRounds, this, iRounds);
 		for (int i = 0; i < this.playerNames.length; i++) {
 			GameMainGui gg = new GameMainGui(playerNames, playerBackgrounds[i], playerForegrounds[i], i, totalRounds,
-					rm);
+					rm, evilNums);
 			gg.setVisible(true);
 			gmgl.add(gg);
 		}

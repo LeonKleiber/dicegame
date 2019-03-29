@@ -17,6 +17,7 @@ public class GameMainGui extends JFrame implements ActionListener {
 	private JPanel contentPane, panel;
 	private JTable table;
 
+	private int[] evilNums;
 	private JButton btnDice, btnCancel;
 	private ScoreManager sm = new ScoreManager();
 	private int dice = 0;
@@ -31,15 +32,23 @@ public class GameMainGui extends JFrame implements ActionListener {
 	private Icon four = new ImageIcon("./Images/four.png", "4");
 	private Icon five = new ImageIcon("./Images/five.png", "5");
 	private Icon six = new ImageIcon("../Images/six.png", "6");
+	private JScrollPane scrollPane;
 
-	public GameMainGui(String[] playerNames, Color background, Color foreground, int i, int rounds, RoundManager rm) {
+	public GameMainGui(String[] playerNames, Color background, Color foreground, int i, int rounds, RoundManager rm,
+			int[] evilNums) {
 		this.rm = rm;
+		this.evilNums = evilNums;
 		this.background = background;
 		this.foreground = foreground;
 		int windowWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width
 				/ playerNames.length;
 		int windowHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-		dtm = new DefaultTableModel();
+		dtm = new DefaultTableModel() {
+			@Override
+			public Class getColumnClass(int column) {
+				return getValueAt(0, column).getClass();
+			}
+		};
 
 		this.dtm.addColumn("Dice 1");
 		this.dtm.addColumn("Dice 2");
@@ -50,7 +59,7 @@ public class GameMainGui extends JFrame implements ActionListener {
 
 		int rows = rounds;
 		for (int iRow = 0; iRow < rows; iRow++) {
-			String[] data = { "", "", "", "", "", "" };
+			Object[] data = { "", "", "", "", "", "" };
 			this.dtm.addRow(data);
 		}
 		setTitle(playerNames[i]);
@@ -63,7 +72,6 @@ public class GameMainGui extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		
 		table = new JTable();
 		table.setEnabled(false);
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
@@ -81,7 +89,11 @@ public class GameMainGui extends JFrame implements ActionListener {
 			table.getColumnModel().getColumn(iCol).setCellRenderer(centerRenderer);
 		}
 
-		contentPane.add(table, BorderLayout.CENTER);
+		scrollPane = new JScrollPane(table);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+
+		scrollPane.setBackground(background);
+		scrollPane.setForeground(foreground);
 
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,7 +110,6 @@ public class GameMainGui extends JFrame implements ActionListener {
 		panel.add(btnDice, BorderLayout.WEST);
 		btnDice.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		btnDice.setBackground(this.background);
-		
 
 	}
 
@@ -143,17 +154,18 @@ public class GameMainGui extends JFrame implements ActionListener {
 					dtm.setValueAt(six, iRounds, sm.getPosition());
 					break;
 				}
-				sm.checkDice();
+				sm.checkDice(evilNums);
 				dice = 0;
 				dtm.setValueAt(sm.getTemporarlyScore() + "/" + sm.getScore(), iRounds, 5);
-			} 
+			}
 
 		}
 
-		if (sm.getTryes()==0) {
+		if (sm.getTryes() == 0) {
 			endRound();
 		}
 	}
+
 	public int getScore() {
 		return sm.getScore();
 	}
