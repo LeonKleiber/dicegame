@@ -17,7 +17,7 @@ public class PlayerConfig extends JFrame implements ActionListener {
 	private String[] playerNames;
 	private Color[] playerBackgrounds;
 	private Color[] playerForegrounds;
-	private JButton btnOption, btnStartGame;
+	private JButton btnStartGame;
 	private JLabel labelsPlayer[];
 	private JTextField tfsPlayer[];
 	private JPanel contentPane;

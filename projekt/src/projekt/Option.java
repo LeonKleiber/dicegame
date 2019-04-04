@@ -54,7 +54,6 @@ public class Option extends JFrame implements ActionListener{
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(this);
 		btnSubmit.setBounds(78, 76, 117, 29);
-		btnSubmit.addActionListener(this);
 		contentPane.add(btnSubmit);
 		
 		checkBox_1 = new JCheckBox("1");

@@ -51,7 +51,7 @@ public class Config extends JFrame implements ActionListener {
 		contentPane.add(LabelPlayers);
 		LabelPlayers.setForeground(Color.WHITE);
 
-		TfPlayers = new JTextField();
+		TfPlayers = new JTextField(); 
 		TfPlayers.setBounds(245, 49, 61, 20);
 		contentPane.add(TfPlayers);
 		TfPlayers.setHorizontalAlignment(SwingConstants.RIGHT);

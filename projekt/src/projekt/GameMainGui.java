@@ -92,8 +92,8 @@ public class GameMainGui extends JFrame implements ActionListener {
 		scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
-		scrollPane.setBackground(background);
-		scrollPane.setForeground(foreground);
+		scrollPane.setBackground(this.background);
+		scrollPane.setForeground(this.foreground);
 
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
